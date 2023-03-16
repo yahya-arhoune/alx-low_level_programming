@@ -7,6 +7,7 @@
  */
 int main(void)
 {
-	printf("Holberton School");
-	return (0);
+	printf("With proper grammar, but the outcome is a piece of art,\n");
+        return (0);
+
 }
