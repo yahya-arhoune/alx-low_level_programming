@@ -2,13 +2,19 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+/**
+ * print_all - print somthing
+ * @format: types list of argmts passed to function
+ *
+ */
+
 void print_all(const char * const format, ...)
 {
 	int i = 0;
-	char *str, *sp = "";
-	va_list lst;
+	char *str, *sep = "";
+	va_list list;
 
-	va_start(lst, format);
+	va_start(list, format);
 
 	if (format)
 	{
@@ -17,28 +23,28 @@ void print_all(const char * const format, ...)
 			switch (format[i])
 			{
 				case 'c':
-					printf("%s%c", sp, va_arg(lst, int));
+					printf("%s%c", sep, va_arg(list, int));
 					break;
 				case 'i':
-					printf("%s%d", sp, va_arg(lst, int));
+					printf("%s%d", sep, va_arg(list, int));
 					break;
 				case 'f':
-					printf("%s%f", sp, va_arg(lst, double));
+					printf("%s%f", sep, va_arg(list, double));
 					break;
 				case 's':
-					str = va_arg(lst, char *);
+					str = va_arg(list, char *);
 					if (!str)
 						str = "(nil)";
-					printf("%s%s", sp, str);
+					printf("%s%s", sep, str);
 					break;
 				default:
 					i++;
 					continue;
 			}
-		sp = ",";
+		sep = ",";
 		i++;
 		}
 	}
 	printf("\n");
-	va_end(lst);
+	va_end(list);
 }
