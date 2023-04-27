@@ -5,8 +5,8 @@
 
 /**
  * add_node_end -- function that adds a new node at the end of a list_t list.
- * @head
- * @str
+ * @head: double string
+ * @str: string to plug in new node.
  * Return: adress, or NULL.
  */
 list_t *add_node_end(list_t **head, const char *str)
@@ -32,9 +32,9 @@ list_t *add_node_end(list_t **head, const char *str)
 		return (new);
 	}
 
-	while (tmp->next)
+	while (temp->next)
 		temp = temp->next;
 
-	temp->next =new;
+	temp->next = new;
 	return (new);
 }

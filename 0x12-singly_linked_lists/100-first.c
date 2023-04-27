@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void first(void) _attribute_ ((constructor));
+void first(void) __attribute__((constructor));
 /**
  * first -- function that prints You're beat! and yet, you must allow,
  * \nI bore my house upon my back!\n
