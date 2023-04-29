@@ -4,7 +4,7 @@
  * find_listint_loop - function that finds the loop in a linked list.
  * @head: linked list to search for.
  *
- * Returns: The address of the node where the loop starts,
+ * Return: The address of the node where the loop starts,
  * or NULL if there is no loop
  */
 
