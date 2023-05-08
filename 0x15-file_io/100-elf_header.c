@@ -1,21 +1,25 @@
 #include "main.h"
 #include <string.h>
 #include <elf.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define BUFF_SIZE 64
 
-void print-error(char *msg)
+void print_error(char *msg)
 {
-	fprintf(stderr, "Error: %s\n", msg);
+	fprintf(stderr, "%s\n", msg);
 	exit(98);
 }
 
 void print_elf_header(Elf64_Ehdr *ehdr)
 {
+	int i;
+
 	printf("ELF Header:\n");
 	printf("  Magic:   ");
 
-	for (int i = 0; i < EI_NIDENT; i++)
+	for (i = 0; i < EI_NIDENT; i++)
 		printf("%02x ", ehdr->e_ident[i]);
 	printf("\n");
 	printf("  Class:                             %s\n", ehdr->e_ident[EI_CLASS] == ELFCLASS32 ? "ELF32" : "ELF64");
@@ -36,28 +40,31 @@ void print_elf_header(Elf64_Ehdr *ehdr)
 	printf("  Section header string table index: %d\n", ehdr->e_shstrndx);
 }
 
-int main(int argc, char **argv[])
+int main(int argc, char *argv[])
 {
 	int fd;
 	Elf64_Ehdr ehdr;
-	size_t n;
+	ssize_t n;
 
 	if (argc != 2)
+	{
 		print_error("Usage: elf_header elf_filename");
+	}
 
 	if ((fd = open(argv[1], O_RDONLY)) == -1 )
+	{
 		print_error("Can't open file");
+	}
 
-	if ((n != read(fd, &ehdr, sizeof(ehdr))) == -1)
-		print_error("Can't read file");
+	n = read(fd, &ehdr, sizeof(ehdr));
 
-	if (n != sizeof(ehdr) || memcmp(ehdr.e_ident, ELFMAG, SELFMAG) != 0)
-		print_error("File is not an ELF file");
+	if (n != sizeof(ehdr))
+	{
+		print_error("Error: Cannot read ELF header");
+	}
 
-	print-elf_header(&ehdr);
+	print_elf_header(&ehdr);
 
-	if (close(fd) == -1)
-		print_error("Can't close file");
-
+	close(fd);
 	return (0);
 }
