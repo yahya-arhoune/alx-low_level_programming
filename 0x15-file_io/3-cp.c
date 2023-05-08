@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 #define BUFSIZE 1024
 
@@ -40,7 +41,7 @@ int main(int argc, char **argv)
 	if (argc != 3)
 		error_exit(97, "Usage: cp file_from file_to\n");
 
-	fd_form = open(argv[1], O_RDONLY);
+	fd_from = open(argv[1], O_RDONLY);
 
 	if (fd_from == -1)
 		error_exit(98, "Can't read from file %s\n", argv[1]);
